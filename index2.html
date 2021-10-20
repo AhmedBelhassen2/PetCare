@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <title>Pets_Care</title>
+  </head>
+  <body>
+  
+  <div class='container'>
+	<br><br>
+    <h1>Pets_Care</h1>
+	<hr>
+	<br>
+	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#add">Add </button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Add</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<form action='/insert/' method='post'>
+			  <div class="form-group row">
+				<label class="col-sm-6 col-form-label">Title</label>
+				<div class="col-sm-6">
+				  <input class="form-control" name="title">
+				</div>
+			  </div>
+			  <div class="form-group row">
+				<label class="col-sm-6 col-form-label">Describe</label>
+				<div class="col-sm-6">
+				  <input class="form-control" name="Describe">
+				</div>
+			  </div>
+			  <div class="form-group row">
+				<label class="col-sm-6 col-form-label">Publication Date</label>
+				<div class="col-sm-6">
+				  <input class="form-control" type='date' name="pub_date">
+				</div>
+			  </div>
+			  <div class="form-group row">
+				<label class="col-sm-6 col-form-label">Publication</label>
+				<div class="col-sm-6">
+				  <input class="form-control" name="Publication">
+				</div>
+			  </div>
+			  <div class="form-group row">
+				<label class="col-sm-6 col-form-label">Price</label>
+				<div class="col-sm-6">
+				  <input step='0.01' class="form-control" name="price">
+				</div>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-success">Submit</button>
+		  </div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+	
+
+
+<br><br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Describe</th>
+	  <th scope="col">Publication Date</th>
+      <th scope="col">Publication</th>
+	  <th scope="col">Price</th>
+	  <th scope="col" colspan='2' style='text-align:center'>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+		{% for i in data %}
+		<tr>
+			<th scope="row">{{loop.index}}</th>
+			<td>{{i['title']}}</td>
+			<td>{{i['Describe']}}</td>
+			<td>{{i['publication_date']}}</td>
+			<td>{{i['Publication']}}</td>
+			<td>{{i['price']}}</td>
+			<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit{{i['id']}}">Edit</button></td>
+			
+			
+			<!-- Modal -->
+			<div class="modal fade" id="edit{{i['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+				  </div>
+				  <form action="/update/{{i['id']}}/" method='post'>
+				  <div class="modal-body">
+					  <div class="form-group row">
+						<label class="col-sm-6 col-form-label">Title</label>
+						<div class="col-sm-6">
+						  <input class="form-control" name="title" value="{{i['title']}}">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label class="col-sm-6 col-form-label">Describe</label>
+						<div class="col-sm-6">
+						  <input class="form-control" name="author" value="{{i['Describe']}}">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label class="col-sm-6 col-form-label">Publication Date</label>
+						<div class="col-sm-6">
+						  <input class="form-control" type='date' name="pub_date" value="{{i['publication_date']}}">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label class="col-sm-6 col-form-label">Describe</label>
+						<div class="col-sm-6">
+						  <input class="form-control" type='form-control' name="Describe" value="{{i['Publication']}}">
+						</div>
+					  </div>
+					  <div class="form-group row">
+						<label class="col-sm-6 col-form-label">Price</label>
+						<div class="col-sm-6">
+						  <input type='number' class="form-control" name="price" value="{{i['price']}}">
+						</div>
+					  </div>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-success">Update</button>
+				  </div>
+				  </form>
+				</div>
+			  </div>
+			</div>
+			<!-- End Modal -->
+			
+			
+			<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_{{i['id']}}">Delete</button></td>
+			
+			
+			<!-- Modal -->
+				<div class="modal fade" id="delete_{{i['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+					  </div>
+					  <form action="/delete/{{i['id']}}/" method='post'>
+					  <div class="modal-body">
+						  <div class="form-group row">
+							<label class="col-sm-12 col-form-label">Do you want to delete the pet <span style='font-weight:bold;color:red'>{{i['title']}}</span> ?</label>				
+						  </div>			
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-danger">Delete</button>
+					  </div>
+					  </form>
+					</div>
+				  </div>
+				</div>
+			<!-- End Modal -->
+			
+			
+		</tr>	
+		{% endfor %}
+	
+  </tbody>
+</table>
+	
+</div>	
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
